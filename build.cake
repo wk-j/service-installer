@@ -17,6 +17,12 @@ Task("Publish").Does(() => {
         OutputDirectory = publishDir
     });
 });
+Task("Publish-C").Does(() => {
+    CleanDirectory(publishDir);
+    DotNetCorePublish($"src/{name}", new DotNetCorePublishSettings {
+        OutputDirectory = "C:/wk/WebApi"
+    });
+});
 
 Task("Pack").Does(() => {
     CleanDirectory(publishDir);
