@@ -5,22 +5,23 @@ using PS = StartProcess.Processor;
 using ProjectParser;
 
 var nugetToken = EnvironmentVariable("npi");
-var name = "ServiceInstaller.Web";
+var name = "ServiceInstaller";
 
 var currentDir = new DirectoryInfo(".").FullName;
 var info = Parser.Parse($"src/{name}/{name}.csproj");
 var publishDir = ".publish";
 
-Task("Publish").Does(() => {
+Task("Publish-Api-C").Does(() => {
     CleanDirectory(publishDir);
-    DotNetCorePublish($"src/{name}", new DotNetCorePublishSettings {
-        OutputDirectory = publishDir
+    DotNetCorePublish($"tests/WebApi", new DotNetCorePublishSettings {
+        OutputDirectory = "C:/wk/WebApi"
     });
 });
-Task("Publish-C").Does(() => {
+
+Task("Publish-Console-C").Does(() => {
     CleanDirectory(publishDir);
-    DotNetCorePublish($"src/{name}", new DotNetCorePublishSettings {
-        OutputDirectory = "C:/wk/WebApi"
+    DotNetCorePublish($"tests/ConsoleApp", new DotNetCorePublishSettings {
+        OutputDirectory = "C:/wk/ConsoleApp"
     });
 });
 
